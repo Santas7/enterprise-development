@@ -1,5 +1,3 @@
-using ShopSalesManagement.Domain;
-
 namespace ShopSalesManagement.Tests;
 
 public class ShopSalesManagementTests : IClassFixture<ShopSalesManagementFixture>

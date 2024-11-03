@@ -20,7 +20,7 @@ public class ProductGroupService : IProductGroupService
         return _context.ProductGroups.Select(pg => new ProductGroupDTO
         {
             Id = pg.Id,
-            Name = pg.Name
+            Name = pg.Name ?? string.Empty
         }).ToList();
     }
 

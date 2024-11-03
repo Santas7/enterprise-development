@@ -4,66 +4,65 @@ using ShopSalesManagement.Domain;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShopSalesManagement.Api.Services
+namespace ShopSalesManagement.Api.Services;
+
+public class ProductGroupService : IProductGroupService
 {
-    public class ProductGroupService : IProductGroupService
+    private readonly ApplicationDbContext _context;
+
+    public ProductGroupService(ApplicationDbContext context)
     {
-        private readonly ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public ProductGroupService(ApplicationDbContext context)
+    public IEnumerable<ProductGroupDTO> GetAll()
+    {
+        return _context.ProductGroups.Select(pg => new ProductGroupDTO
         {
-            _context = context;
-        }
+            Id = pg.Id,
+            Name = pg.Name
+        }).ToList();
+    }
 
-        public IEnumerable<ProductGroupDTO> GetAll()
+    public ProductGroupDTO GetById(int id)
+    {
+        var productGroup = _context.ProductGroups.Find(id);
+        return productGroup == null ? null : new ProductGroupDTO
         {
-            return _context.ProductGroups.Select(pg => new ProductGroupDTO
-            {
-                Id = pg.Id,
-                Name = pg.Name
-            }).ToList();
-        }
+            Id = productGroup.Id,
+            Name = productGroup.Name
+        };
+    }
 
-        public ProductGroupDTO GetById(int id)
+    public ProductGroupDTO Create(ProductGroupDTO productGroupDto)
+    {
+        var productGroup = new ProductGroup
         {
-            var productGroup = _context.ProductGroups.Find(id);
-            return productGroup == null ? null : new ProductGroupDTO
-            {
-                Id = productGroup.Id,
-                Name = productGroup.Name
-            };
-        }
+            Name = productGroupDto.Name
+        };
+        _context.ProductGroups.Add(productGroup);
+        _context.SaveChanges();
+        productGroupDto.Id = productGroup.Id;
+        return productGroupDto;
+    }
 
-        public ProductGroupDTO Create(ProductGroupDTO productGroupDto)
-        {
-            var productGroup = new ProductGroup
-            {
-                Name = productGroupDto.Name
-            };
-            _context.ProductGroups.Add(productGroup);
-            _context.SaveChanges();
-            productGroupDto.Id = productGroup.Id;
-            return productGroupDto;
-        }
+    public bool Update(int id, ProductGroupDTO productGroupDto)
+    {
+        var productGroup = _context.ProductGroups.Find(id);
+        if (productGroup == null) return false;
 
-        public bool Update(int id, ProductGroupDTO productGroupDto)
-        {
-            var productGroup = _context.ProductGroups.Find(id);
-            if (productGroup == null) return false;
+        productGroup.Name = productGroupDto.Name;
+        _context.SaveChanges();
+        return true;
+    }
 
-            productGroup.Name = productGroupDto.Name;
-            _context.SaveChanges();
-            return true;
-        }
+    public bool Delete(int id)
+    {
+        var productGroup = _context.ProductGroups.Find(id);
+        if (productGroup == null) return false;
 
-        public bool Delete(int id)
-        {
-            var productGroup = _context.ProductGroups.Find(id);
-            if (productGroup == null) return false;
-
-            _context.ProductGroups.Remove(productGroup);
-            _context.SaveChanges();
-            return true;
-        }
+        _context.ProductGroups.Remove(productGroup);
+        _context.SaveChanges();
+        return true;
     }
 }

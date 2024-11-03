@@ -1,8 +1,7 @@
-﻿namespace ShopSalesManagement.Api.DTOs
+﻿namespace ShopSalesManagement.Api.DTOs;
+
+public class ProductGroupDTO
 {
-    public class ProductGroupDTO
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;  
-    }
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;  
 }

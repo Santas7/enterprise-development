@@ -6,7 +6,7 @@ namespace ShopSalesManagement.Api.Services;
 public interface IStockService
 {
     IEnumerable<StockDTO> GetAll();
-    StockDTO GetById(int id);
+    StockDTO? GetById(int id);
     StockDTO Create(StockDTO stockDto);
     bool Update(int id, StockDTO stockDto);
     bool Delete(int id);

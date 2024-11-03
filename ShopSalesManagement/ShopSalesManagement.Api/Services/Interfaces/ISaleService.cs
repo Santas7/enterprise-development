@@ -6,7 +6,7 @@ namespace ShopSalesManagement.Api.Services;
 public interface ISaleService
 {
     IEnumerable<SaleDTO> GetAll();
-    SaleDTO GetById(int id);
+    SaleDTO? GetById(int id);
     SaleDTO Create(SaleDTO saleDto);
     bool Update(int id, SaleDTO saleDto);
     bool Delete(int id);

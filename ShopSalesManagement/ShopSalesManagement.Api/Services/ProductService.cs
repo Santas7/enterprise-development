@@ -19,7 +19,7 @@ public class ProductService
             .ToList();
     }
 
-    public ProductDTO GetById(int id)
+    public ProductDTO? GetById(int id)
     {
         var product = _context.Products.Find(id);
         if (product == null) return null;

@@ -43,18 +43,13 @@ public class SaleService : ISaleService
 
     public SaleDTO Create(SaleDTO saleDto)
     {
-        var sale = new Sale
-        {
-            SaleDate = saleDto.SaleDate,
-            CustomerId = saleDto.CustomerId,
-            StoreId = saleDto.StoreId,
-            TotalAmount = saleDto.TotalAmount
-        };
+        var sale = new Sale(saleDto.SaleDate, saleDto.CustomerId, saleDto.StoreId, saleDto.TotalAmount);
         _context.Sales.Add(sale);
         _context.SaveChanges();
         saleDto.Id = sale.Id;
         return saleDto;
     }
+
 
     public bool Update(int id, SaleDTO saleDto)
     {

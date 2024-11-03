@@ -36,16 +36,28 @@ public class ShopSalesManagementFixture
         Customers =
         [
             new Customer("987654321", "Jane Doe")
-                { Id = 1 },
+                { Id = 1, CardNumber="123", FullName="A" },
             new Customer("123456789", "John Smith")
-                { Id = 2 }
+                { Id = 2, CardNumber="456", FullName="B" }
         ];
         Sales =
         [
             new Sale(DateTime.Today.AddDays(-1), 1, 1, 20.0m)
-                { Id = 1 },
+            {
+                Id = 1,
+                SaleDate = DateTime.Today.AddDays(-1),
+                CustomerId = 1,
+                StoreId = 1,
+                TotalAmount = 20.0m
+            },
             new Sale(DateTime.Today.AddDays(-2), 2, 2, 15.0m)
-                { Id = 2 }
+            {
+                Id = 2,
+                SaleDate = DateTime.Today.AddDays(-2),
+                CustomerId = 2,
+                StoreId = 2,
+                TotalAmount = 15.0m
+            }
         ];
         Purchases =
         [

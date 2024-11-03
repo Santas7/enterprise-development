@@ -29,13 +29,21 @@ public class ProductService
 
     public ProductDTO Create(ProductDTO productDto)
     {
-        var product = new Product { Name = productDto.Name, Price = productDto.Price };
+        var product = new Product(
+            productDto.Barcode,        
+            productDto.Name,          
+            productDto.Type,          
+            productDto.Price,         
+            productDto.ExpirationDate 
+        );
+
         _context.Products.Add(product);
         _context.SaveChanges();
 
         productDto.Id = product.Id;
         return productDto;
     }
+
 
     public bool Update(int id, ProductDTO productDto)
     {

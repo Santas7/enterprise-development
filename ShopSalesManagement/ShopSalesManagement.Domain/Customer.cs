@@ -7,8 +7,8 @@ namespace ShopSalesManagement.Domain
     {
         [Key]
         public int Id { get; set; }
-        public string CardNumber { get; set; }
-        public string FullName { get; set; }
+        public required string CardNumber { get; set; }
+        public required string FullName { get; set; }
 
         public ICollection<Sale> Sales { get; set; } = new List<Sale>();
 

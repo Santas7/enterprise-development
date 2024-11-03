@@ -1,26 +1,23 @@
-﻿namespace ShopSalesManagement.Domain;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// Представляет магазин.
-/// </summary>
-public class Store
+namespace ShopSalesManagement.Domain
 {
-    /// <summary>
-    /// Уникальный идентификатор магазина.
-    /// </summary>
-    public int Id { get; set; }
-    /// <summary>
-    /// Название магазина.
-    /// </summary>
-    public string Name { get; set; }
-    /// <summary>
-    /// Адрес магазина.
-    /// </summary>
-    public string Address { get; set; }
-    
-    public Store(string name, string address)
+    public class Store
     {
-        Name = name;
-        Address = address;
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+
+        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
+        public ICollection<Stock> Stocks { get; set; } = new List<Stock>();
+
+        public Store(string name, string address)
+        {
+            Name = name;
+            Address = address;
+        }
+        public Store() { }
     }
 }

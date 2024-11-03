@@ -1,36 +1,20 @@
-﻿namespace ShopSalesManagement.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// Представляет продажу.
-/// </summary>
-public class Sale
+namespace ShopSalesManagement.Domain
 {
-    /// <summary>
-    /// Уникальный идентификатор продажи.
-    /// </summary>
-    public int Id { get; set; }
-    /// <summary>
-    /// Дата продажи.
-    /// </summary>
-    public DateTime SaleDate { get; set; }
-    /// <summary>
-    /// Идентификатор покупателя (по номеру карты).
-    /// </summary>
-    public int CustomerId { get; set; }
-    /// <summary>
-    /// Идентификатор магазина.
-    /// </summary>
-    public int StoreId { get; set; }
-    /// <summary>
-    /// Общая сумма продажи.
-    /// </summary>
-    public decimal TotalAmount { get; set; }
-
-    public Sale(DateTime saleDate, int customerId, int storeId, decimal totalAmount)
+    public class Sale
     {
-        SaleDate = saleDate;
-        CustomerId = customerId;
-        StoreId = storeId;
-        TotalAmount = totalAmount;
+        [Key]
+        public int Id { get; set; }
+        public DateTime SaleDate { get; set; }
+        public int CustomerId { get; set; }
+        public int StoreId { get; set; }
+        public decimal TotalAmount { get; set; }
+
+        public Customer Customer { get; set; }
+        public Store Store { get; set; }
+        public ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
     }
 }

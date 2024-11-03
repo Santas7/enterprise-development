@@ -1,26 +1,22 @@
-﻿namespace ShopSalesManagement.Domain;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
-/// <summary>
-/// Представляет покупателя.
-/// </summary>
-public class Customer
+namespace ShopSalesManagement.Domain
 {
-    /// <summary>
-    /// Уникальный идентификатор покупателя.
-    /// </summary>
-    public int Id { get; set; }
-    /// <summary>
-    /// Номер карты покупателя.
-    /// </summary>
-    public string CardNumber { get; set; }
-    /// <summary>
-    /// Полное имя покупателя.
-    /// </summary>
-    public string FullName { get; set; }
-   
-    public Customer(string cardNumber, string fullName)
+    public class Customer
     {
-        CardNumber = cardNumber;
-        FullName = fullName;
+        [Key]
+        public int Id { get; set; }
+        public string CardNumber { get; set; }
+        public string FullName { get; set; }
+
+        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
+
+        public Customer(string cardNumber, string fullName)
+        {
+            CardNumber = cardNumber;
+            FullName = fullName;
+        }
+        public Customer() { }
     }
 }

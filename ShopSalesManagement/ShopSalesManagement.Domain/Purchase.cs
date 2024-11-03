@@ -1,32 +1,17 @@
-﻿namespace ShopSalesManagement.Domain;
+﻿using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// Представляет покупку в рамках продажи.
-/// </summary>
-public class Purchase
+namespace ShopSalesManagement.Domain
 {
-    /// <summary>
-    /// Уникальный идентификатор покупки.
-    /// </summary>
-    public int Id { get; set; }
-    /// <summary>
-    /// Идентификатор продажи.
-    /// </summary>
-    public int SaleId { get; set; }
-    /// <summary>
-    /// Идентификатор товара.
-    /// </summary>
-    public int ProductId { get; set; }
-    /// <summary>
-    /// Количество товара.
-    /// </summary>
-    public int Quantity { get; set; }
-    /// <summary>
-    /// Цена за единицу товара.
-    /// </summary>
-    public decimal UnitPrice { get; set; }
-    /// <summary>
-    /// Общая сумма за товар.
-    /// </summary>
-    public decimal TotalPrice { get; set; }
+    public class Purchase
+    {
+        [Key]
+        public int Id { get; set; }
+        public int SaleId { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TotalPrice { get; set; }
+        public Sale Sale { get; set; }
+        public Product Product { get; set; }
+    }
 }

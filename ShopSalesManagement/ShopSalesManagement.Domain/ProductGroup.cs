@@ -1,21 +1,20 @@
-﻿namespace ShopSalesManagement.Domain;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// Представляет товарную группу.
-/// </summary>
-public class ProductGroup
+namespace ShopSalesManagement.Domain
 {
-    /// <summary>
-    /// Уникальный идентификатор товарной группы.
-    /// </summary>
-    public int Id { get; set; }
-    /// <summary>
-    /// Наименование товарной группы.
-    /// </summary>
-    public string Name { get; set; }
-
-    public ProductGroup(string name)
+    public class ProductGroup
     {
-        Name = name;
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public ICollection<Product> Products { get; set; } = new List<Product>();
+
+        public ProductGroup(string name)
+        {
+            Name = name;
+        }
+        public ProductGroup() { }
     }
 }

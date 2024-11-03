@@ -27,7 +27,7 @@ public class PurchaseService : IPurchaseService
         }).ToList();
     }
 
-    public PurchaseDTO GetById(int id)
+    public PurchaseDTO? GetById(int id)
     {
         var purchase = _context.Purchases.Find(id);
         return purchase == null ? null : new PurchaseDTO

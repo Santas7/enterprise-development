@@ -24,13 +24,13 @@ public class ProductGroupService : IProductGroupService
         }).ToList();
     }
 
-    public ProductGroupDTO GetById(int id)
+    public ProductGroupDTO? GetById(int id)
     {
         var productGroup = _context.ProductGroups.Find(id);
         return productGroup == null ? null : new ProductGroupDTO
         {
             Id = productGroup.Id,
-            Name = productGroup.Name
+            Name = productGroup.Name ?? string.Empty
         };
     }
 

@@ -104,10 +104,10 @@ public class StockService : IStockService
     {
         var today = DateTime.Today; 
         return _context.Stocks
-            .Where(stock => stock.Quantity > 0 && stock.Product.ExpirationDate < today) 
+            .Where(stock => stock.Quantity > 0 && stock.Product!.ExpirationDate < today) 
             .Select(stock => new ProductDTO
             {
-                Id = stock.Product.Id,
+                Id = stock.Product!.Id,
                 Barcode = stock.Product.Barcode,
                 ProductGroupId = stock.Product.ProductGroupId,
                 Name = stock.Product.Name,

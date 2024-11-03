@@ -72,7 +72,7 @@ public class ProductService
     {
         return _context.Stocks
             .Where(s => s.ProductId == productId)
-            .Select(s => new StoreDTO { Id = s.Store.Id, Name = s.Store.Name })
+            .Select(s => new StoreDTO { Id = s.Store!.Id, Name = s.Store.Name ?? string.Empty })
             .Distinct()
             .ToList();
     }

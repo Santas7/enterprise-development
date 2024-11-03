@@ -28,7 +28,7 @@ public class SaleService : ISaleService
         }).ToList();
     }
 
-    public SaleDTO GetById(int id)
+    public SaleDTO? GetById(int id)
     {
         var sale = _context.Sales.Find(id);
         return sale == null ? null : new SaleDTO
@@ -80,9 +80,9 @@ public class SaleService : ISaleService
             .Where(s => s.TotalAmount > threshold && s.SaleDate >= startDate && s.SaleDate <= endDate)
             .Select(s => new StoreDTO
             {
-                Id = s.Store.Id,
-                Name = s.Store.Name,
-                Address = s.Store.Address
+                Id = s.Store!.Id,
+                Name = s.Store.Name ?? string.Empty,
+                Address = s.Store.Address ?? string.Empty
             }).Distinct().ToList();
     }
 }

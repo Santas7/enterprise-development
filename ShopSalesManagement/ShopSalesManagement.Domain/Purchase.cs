@@ -11,7 +11,7 @@ namespace ShopSalesManagement.Domain
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
-        public Sale Sale { get; set; }
-        public Product Product { get; set; }
+        public Sale? Sale { get; set; }
+        public Product? Product { get; set; }
     }
 }

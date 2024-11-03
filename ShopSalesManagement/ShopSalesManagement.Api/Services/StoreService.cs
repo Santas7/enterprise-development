@@ -18,20 +18,20 @@ public class StoreService : IStoreService
     {
         return _context.Stores.Select(s => new StoreDTO
         {
-            Id = s.Id,
-            Name = s.Name,
-            Address = s.Address
+            Id = s!.Id,
+            Name = s.Name ?? string.Empty,
+            Address = s.Address ?? string.Empty
         }).ToList();
     }
 
-    public StoreDTO GetById(int id)
+    public StoreDTO? GetById(int id)
     {
         var store = _context.Stores.Find(id);
         return store == null ? null : new StoreDTO
         {
             Id = store.Id,
-            Name = store.Name,
-            Address = store.Address
+            Name = store.Name ?? string.Empty,
+            Address = store.Address ?? string.Empty
         };
     }
 
@@ -44,7 +44,7 @@ public class StoreService : IStoreService
         };
         _context.Stores.Add(store);
         _context.SaveChanges();
-        storeDto.Id = store.Id; // ID вновь созданного магазина
+        storeDto.Id = store.Id; 
         return storeDto;
     }
 
@@ -75,7 +75,7 @@ public class StoreService : IStoreService
             .Where(stock => stock.StoreId == storeId && stock.Quantity > 0)
             .Select(stock => new ProductDTO
             {
-                Id = stock.Product.Id,
+                Id = stock.Product!.Id ,
                 Barcode = stock.Product.Barcode,
                 ProductGroupId = stock.Product.ProductGroupId,
                 Name = stock.Product.Name,
@@ -102,12 +102,15 @@ public class StoreService : IStoreService
     public IEnumerable<StoreDTO> GetStoresWithStockForProduct(int productId)
     {
         return _context.Stocks
-            .Where(stock => stock.ProductId == productId && stock.Quantity > 0)
+            .Where(stock => stock.ProductId == productId && stock.Quantity > 0 && stock.Store != null)
             .Select(stock => new StoreDTO
             {
-                Id = stock.Store.Id,
-                Name = stock.Store.Name,
-                Address = stock.Store.Address
-            }).Distinct().ToList();
+                Id = stock.Store!.Id,          
+                Name = stock.Store.Name ?? string.Empty,
+                Address = stock.Store.Address ?? string.Empty
+            })
+            .Distinct()
+            .ToList();
     }
+
 }

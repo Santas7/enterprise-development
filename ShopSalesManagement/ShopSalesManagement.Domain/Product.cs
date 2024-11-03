@@ -15,7 +15,7 @@ namespace ShopSalesManagement.Domain
         public decimal Price { get; set; }
         public DateTime ExpirationDate { get; set; }
 
-        public ProductGroup ProductGroup { get; set; }
+        public ProductGroup? ProductGroup { get; set; }
         public Product(string barcode, string name, string type, decimal price, DateTime expirationDate)
         {
             Barcode = barcode;

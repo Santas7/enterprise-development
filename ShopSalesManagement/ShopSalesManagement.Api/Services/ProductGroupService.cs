@@ -30,9 +30,10 @@ public class ProductGroupService : IProductGroupService
         return productGroup == null ? null : new ProductGroupDTO
         {
             Id = productGroup.Id,
-            Name = productGroup.Name ?? string.Empty
+            Name = productGroup.Name ?? string.Empty 
         };
     }
+
 
     public ProductGroupDTO Create(ProductGroupDTO productGroupDto)
     {

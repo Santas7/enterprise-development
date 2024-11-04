@@ -1,8 +1,6 @@
 ﻿using ShopSalesManagement.Api.DTOs;
 using ShopSalesManagement.Api.Services.Interfaces;
 using ShopSalesManagement.Domain;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ShopSalesManagement.Api.Services;
 
@@ -43,7 +41,7 @@ public class ProductService : IProductService
         _context.Products.Add(product);
         _context.SaveChanges();
 
-        productDto.Id = product.Id; // Устанавливаем ID созданного продукта
+        productDto.Id = product.Id; 
         return productDto;
     }
 
@@ -54,7 +52,6 @@ public class ProductService : IProductService
 
         product.Name = productDto.Name;
         product.Price = productDto.Price;
-        // Здесь вы можете обновить другие поля, если это необходимо
         _context.SaveChanges();
 
         return true;

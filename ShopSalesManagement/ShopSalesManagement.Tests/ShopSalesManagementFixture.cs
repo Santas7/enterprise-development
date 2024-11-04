@@ -1,6 +1,4 @@
 using ShopSalesManagement.Domain;
-using System;
-using System.Collections.Generic; 
 
 namespace ShopSalesManagement.Tests;
 

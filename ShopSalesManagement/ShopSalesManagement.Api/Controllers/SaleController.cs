@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopSalesManagement.Api.DTOs;
-using ShopSalesManagement.Api.Services;
+using ShopSalesManagement.Api.Services.Interfaces;
 using System.Collections.Generic;
 
 namespace ShopSalesManagement.Api.Controllers;

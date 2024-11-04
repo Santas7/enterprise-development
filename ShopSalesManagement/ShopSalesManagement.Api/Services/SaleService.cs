@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShopSalesManagement.Api.Services;
+namespace ShopSalesManagement.Api.Services.Interfaces;
 
 public class SaleService : ISaleService
 {

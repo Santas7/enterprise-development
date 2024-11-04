@@ -16,6 +16,10 @@ public class ProductGroupController : ControllerBase
         _productGroupService = productGroupService;
     }
 
+    /// <summary>
+    /// Получить все товарные группы.
+    /// </summary>
+    /// <returns>Список товарных групп.</returns>
     [HttpGet]
     public ActionResult<IEnumerable<ProductGroupDTO>> GetProductGroups()
     {
@@ -23,6 +27,11 @@ public class ProductGroupController : ControllerBase
         return Ok(productGroups);
     }
 
+    /// <summary>
+    /// Получить товарную группу по ID.
+    /// </summary>
+    /// <param name="id">Идентификатор товарной группы.</param>
+    /// <returns>Товарная группа с указанным ID или статус 404, если группа не найдена.</returns>
     [HttpGet("{id}")]
     public ActionResult<ProductGroupDTO> GetProductGroup(int id)
     {
@@ -31,20 +40,36 @@ public class ProductGroupController : ControllerBase
         return Ok(productGroup);
     }
 
+    /// <summary>
+    /// Создать новую товарную группу.
+    /// </summary>
+    /// <param name="productGroupDto">Данные товарной группы для создания.</param>
+    /// <returns>Созданная товарная группа с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<ProductGroupDTO> CreateProductGroup(ProductGroupDTO productGroupDto)
+    public ActionResult<ProductGroupDTO> CreateProductGroup([FromBody] ProductGroupDTO productGroupDto)
     {
         var productGroup = _productGroupService.Create(productGroupDto);
         return CreatedAtAction(nameof(GetProductGroup), new { id = productGroup.Id }, productGroup);
     }
 
+    /// <summary>
+    /// Обновить товарную группу по ID.
+    /// </summary>
+    /// <param name="id">Идентификатор товарной группы, которую нужно обновить.</param>
+    /// <param name="productGroupDto">Новые данные товарной группы.</param>
+    /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если группа не найдена.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateProductGroup(int id, ProductGroupDTO productGroupDto)
+    public IActionResult UpdateProductGroup(int id, [FromBody] ProductGroupDTO productGroupDto)
     {
         if (!_productGroupService.Update(id, productGroupDto)) return NotFound();
         return NoContent();
     }
 
+    /// <summary>
+    /// Удалить товарную группу по ID.
+    /// </summary>
+    /// <param name="id">Идентификатор товарной группы, которую нужно удалить.</param>
+    /// <returns>Статус 204, если удаление прошло успешно, или статус 404, если группа не найдена.</returns>
     [HttpDelete("{id}")]
     public IActionResult DeleteProductGroup(int id)
     {

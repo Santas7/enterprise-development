@@ -6,12 +6,21 @@ using ShopSalesManagement.Api.Services;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ShopSalesManagement.Domain;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Добавление сервиса контекста базы данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
+});
+
 
 // Добавление сервисов и конфигурация
 builder.Services.AddControllers();

@@ -17,8 +17,9 @@ public class CustomerController : ControllerBase
     }
 
     /// <summary>
-    /// Получить всех клиентов.
+    /// Получить всех покупателей.
     /// </summary>
+    /// <returns>Список покупателей.</returns>
     [HttpGet]
     public ActionResult<IEnumerable<CustomerDTO>> GetCustomers()
     {
@@ -27,8 +28,10 @@ public class CustomerController : ControllerBase
     }
 
     /// <summary>
-    /// Получить клиента по ID.
+    /// Получить покупателя по ID.
     /// </summary>
+    /// <param name="id">Идентификатор покупателя.</param>
+    /// <returns>Покупатель с указанным ID или статус 404, если покупатель не найден.</returns>
     [HttpGet("{id}")]
     public ActionResult<CustomerDTO> GetCustomer(int id)
     {
@@ -38,28 +41,35 @@ public class CustomerController : ControllerBase
     }
 
     /// <summary>
-    /// Создать нового клиента.
+    /// Создать нового покупателя.
     /// </summary>
+    /// <param name="customerDto">Данные покупателя для создания.</param>
+    /// <returns>Созданный покупатель с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<CustomerDTO> CreateCustomer(CustomerDTO customerDto)
+    public ActionResult<CustomerDTO> CreateCustomer([FromBody] CustomerDTO customerDto)
     {
         var customer = _customerService.Create(customerDto);
         return CreatedAtAction(nameof(GetCustomer), new { id = customer.Id }, customer);
     }
 
     /// <summary>
-    /// Обновить клиента по ID.
+    /// Обновить покупателя по ID.
     /// </summary>
+    /// <param name="id">Идентификатор покупателя, которого нужно обновить.</param>
+    /// <param name="customerDto">Новые данные покупателя.</param>
+    /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если покупатель не найден.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateCustomer(int id, CustomerDTO customerDto)
+    public IActionResult UpdateCustomer(int id, [FromBody] CustomerDTO customerDto)
     {
         if (!_customerService.Update(id, customerDto)) return NotFound();
         return NoContent();
     }
 
     /// <summary>
-    /// Удалить клиента по ID.
+    /// Удалить покупателя по ID.
     /// </summary>
+    /// <param name="id">Идентификатор покупателя, которого нужно удалить.</param>
+    /// <returns>Статус 204, если удаление прошло успешно, или статус 404, если покупатель не найден.</returns>
     [HttpDelete("{id}")]
     public IActionResult DeleteCustomer(int id)
     {

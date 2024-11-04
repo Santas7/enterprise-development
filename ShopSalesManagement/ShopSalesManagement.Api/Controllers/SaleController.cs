@@ -16,6 +16,10 @@ public class SaleController : ControllerBase
         _saleService = saleService;
     }
 
+    /// <summary>
+    /// Получить все продажи.
+    /// </summary>
+    /// <returns>Список всех продаж.</returns>
     [HttpGet]
     public ActionResult<IEnumerable<SaleDTO>> GetSales()
     {
@@ -23,6 +27,11 @@ public class SaleController : ControllerBase
         return Ok(sales);
     }
 
+    /// <summary>
+    /// Получить продажу по ID.
+    /// </summary>
+    /// <param name="id">Идентификатор продажи.</param>
+    /// <returns>Продажа с указанным ID или статус 404, если продажа не найдена.</returns>
     [HttpGet("{id}")]
     public ActionResult<SaleDTO> GetSale(int id)
     {
@@ -31,20 +40,36 @@ public class SaleController : ControllerBase
         return Ok(sale);
     }
 
+    /// <summary>
+    /// Создать новую продажу.
+    /// </summary>
+    /// <param name="saleDto">Данные для создания продажи.</param>
+    /// <returns>Созданная продажа с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<SaleDTO> CreateSale(SaleDTO saleDto)
+    public ActionResult<SaleDTO> CreateSale([FromBody] SaleDTO saleDto)
     {
         var sale = _saleService.Create(saleDto);
         return CreatedAtAction(nameof(GetSale), new { id = sale.Id }, sale);
     }
 
+    /// <summary>
+    /// Обновить продажу по ID.
+    /// </summary>
+    /// <param name="id">Идентификатор продажи, которую нужно обновить.</param>
+    /// <param name="saleDto">Новые данные продажи.</param>
+    /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если продажа не найдена.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateSale(int id, SaleDTO saleDto)
+    public IActionResult UpdateSale(int id, [FromBody] SaleDTO saleDto)
     {
         if (!_saleService.Update(id, saleDto)) return NotFound();
         return NoContent();
     }
 
+    /// <summary>
+    /// Удалить продажу по ID.
+    /// </summary>
+    /// <param name="id">Идентификатор продажи, которую нужно удалить.</param>
+    /// <returns>Статус 204, если удаление прошло успешно, или статус 404, если продажа не найдена.</returns>
     [HttpDelete("{id}")]
     public IActionResult DeleteSale(int id)
     {
@@ -52,6 +77,11 @@ public class SaleController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Получить магазины с продажами выше заданного порога.
+    /// </summary>
+    /// <param name="threshold">Минимальная сумма продаж для фильтрации магазинов.</param>
+    /// <returns>Список магазинов с продажами выше указанного порога.</returns>
     [HttpGet("stores/sales-above/{threshold}")]
     public ActionResult<IEnumerable<StoreDTO>> GetStoresWithSalesAbove(decimal threshold)
     {

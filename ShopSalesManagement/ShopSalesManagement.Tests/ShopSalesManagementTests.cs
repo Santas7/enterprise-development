@@ -27,7 +27,7 @@ public class ShopSalesManagementTests : IClassFixture<ShopSalesManagementFixture
     [Fact]
     public void CanRetrieveProductsInStore()
     {
-        int storeId = 1;
+        var storeId = 1;
         var storeProducts = _fixture.Stocks
             .Where(stock => stock.StoreId == storeId)
             .Join(_fixture.Products, stock => stock.ProductId, product => product.Id, (stock, product) => product)
@@ -38,7 +38,7 @@ public class ShopSalesManagementTests : IClassFixture<ShopSalesManagementFixture
     [Fact]
     public void CanRetrieveStoresWithTotalSalesAboveThreshold()
     {
-        decimal threshold = 15.0m;
+        var threshold = 15.0m;
         var storesAboveThreshold = _fixture.Sales
             .GroupBy(s => s.StoreId)
             .Where(g => g.Sum(s => s.TotalAmount) > threshold)
@@ -61,7 +61,7 @@ public class ShopSalesManagementTests : IClassFixture<ShopSalesManagementFixture
     [Fact]
     public void CanRetrieveStoresWithProductInStock()
     {
-        int productId = 1;
+        var productId = 1;
         var storesWithProduct = _fixture.Stocks
             .Where(stock => stock.ProductId == productId && stock.Quantity > 0)
             .Join(_fixture.Stores, stock => stock.StoreId, store => store.Id, (stock, store) => store)

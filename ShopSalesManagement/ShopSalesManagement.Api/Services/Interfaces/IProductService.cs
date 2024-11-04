@@ -1,6 +1,6 @@
 ﻿using ShopSalesManagement.Api.DTOs;
 
-namespace ShopSalesManagement.Api.Services;
+namespace ShopSalesManagement.Api.Services.Interfaces;
 
 public interface IProductService
 {

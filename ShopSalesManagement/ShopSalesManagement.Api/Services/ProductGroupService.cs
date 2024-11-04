@@ -1,10 +1,10 @@
 ﻿using ShopSalesManagement.Api.DTOs;
 using ShopSalesManagement.Domain;
-
+using ShopSalesManagement.Api.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShopSalesManagement.Api.Services.Interfaces;
+namespace ShopSalesManagement.Api.Services;
 
 public class ProductGroupService : IProductGroupService
 {

@@ -1,11 +1,12 @@
 ﻿using ShopSalesManagement.Api.DTOs;
+using ShopSalesManagement.Api.Services.Interfaces;
 using ShopSalesManagement.Domain;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShopSalesManagement.Api.Services.Interfaces;
+namespace ShopSalesManagement.Api.Services;
 
 public class SaleService : ISaleService
 {

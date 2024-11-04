@@ -1,9 +1,12 @@
 ﻿using ShopSalesManagement.Api.DTOs;
+using ShopSalesManagement.Api.Services.Interfaces;
 using ShopSalesManagement.Domain;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ProductService
+namespace ShopSalesManagement.Api.Services;
+
+public class ProductService : IProductService 
 {
     private readonly ApplicationDbContext _context;
 
@@ -30,20 +33,19 @@ public class ProductService
     public ProductDto Create(ProductDto productDto)
     {
         var product = new Product(
-            productDto.Barcode,        
-            productDto.Name,          
-            productDto.Type,          
-            productDto.Price,         
-            productDto.ExpirationDate 
+            productDto.Barcode,
+            productDto.Name,
+            productDto.Type,
+            productDto.Price,
+            productDto.ExpirationDate
         );
 
         _context.Products.Add(product);
         _context.SaveChanges();
 
-        productDto.Id = product.Id;
+        productDto.Id = product.Id; // Устанавливаем ID созданного продукта
         return productDto;
     }
-
 
     public bool Update(int id, ProductDto productDto)
     {
@@ -52,6 +54,7 @@ public class ProductService
 
         product.Name = productDto.Name;
         product.Price = productDto.Price;
+        // Здесь вы можете обновить другие поля, если это необходимо
         _context.SaveChanges();
 
         return true;

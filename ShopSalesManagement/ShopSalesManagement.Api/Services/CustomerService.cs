@@ -1,7 +1,8 @@
 ﻿using ShopSalesManagement.Api.DTOs;
+using ShopSalesManagement.Api.Services.Interfaces;
 using ShopSalesManagement.Domain;
 
-namespace ShopSalesManagement.Api.Services.Interfaces;
+namespace ShopSalesManagement.Api.Services;
 
 public class CustomerService : ICustomerService
 {

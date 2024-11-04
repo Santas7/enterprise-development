@@ -12,22 +12,22 @@ public class ProductService
         _context = context;
     }
 
-    public IEnumerable<ProductDTO> GetAll()
+    public IEnumerable<ProductDto> GetAll()
     {
         return _context.Products
-            .Select(p => new ProductDTO { Id = p.Id, Name = p.Name, Price = p.Price })
+            .Select(p => new ProductDto { Id = p.Id, Name = p.Name, Price = p.Price })
             .ToList();
     }
 
-    public ProductDTO? GetById(int id)
+    public ProductDto? GetById(int id)
     {
         var product = _context.Products.Find(id);
         if (product == null) return null;
 
-        return new ProductDTO { Id = product.Id, Name = product.Name, Price = product.Price };
+        return new ProductDto { Id = product.Id, Name = product.Name, Price = product.Price };
     }
 
-    public ProductDTO Create(ProductDTO productDto)
+    public ProductDto Create(ProductDto productDto)
     {
         var product = new Product(
             productDto.Barcode,        
@@ -45,7 +45,7 @@ public class ProductService
     }
 
 
-    public bool Update(int id, ProductDTO productDto)
+    public bool Update(int id, ProductDto productDto)
     {
         var product = _context.Products.Find(id);
         if (product == null) return false;
@@ -68,11 +68,11 @@ public class ProductService
         return true;
     }
 
-    public IEnumerable<StoreDTO> GetStoresWithProduct(int productId)
+    public IEnumerable<StoreDto> GetStoresWithProduct(int productId)
     {
         return _context.Stocks
             .Where(s => s.ProductId == productId)
-            .Select(s => new StoreDTO { Id = s.Store!.Id, Name = s.Store.Name ?? string.Empty })
+            .Select(s => new StoreDto { Id = s.Store!.Id, Name = s.Store.Name ?? string.Empty })
             .Distinct()
             .ToList();
     }

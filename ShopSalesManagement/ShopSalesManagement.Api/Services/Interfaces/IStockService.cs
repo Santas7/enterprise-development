@@ -5,12 +5,12 @@ namespace ShopSalesManagement.Api.Services;
 
 public interface IStockService
 {
-    IEnumerable<StockDTO> GetAll();
-    StockDTO? GetById(int id);
-    StockDTO Create(StockDTO stockDto);
-    bool Update(int id, StockDTO stockDto);
+    IEnumerable<StockDto> GetAll();
+    StockDto? GetById(int id);
+    StockDto Create(StockDto stockDto);
+    bool Update(int id, StockDto stockDto);
     bool Delete(int id);
-    IEnumerable<StockDTO> GetStockByStore(int storeId);
-    IEnumerable<StockDTO> GetStockBelowThreshold(int threshold);
-    IEnumerable<ProductDTO> GetExpiredProducts();
+    IEnumerable<StockDto> GetStockByStore(int storeId);
+    IEnumerable<StockDto> GetStockBelowThreshold(int threshold);
+    IEnumerable<ProductDto> GetExpiredProducts();
 }

@@ -14,9 +14,9 @@ public class PurchaseService : IPurchaseService
         _context = context;
     }
 
-    public IEnumerable<PurchaseDTO> GetAll()
+    public IEnumerable<PurchaseDto> GetAll()
     {
-        return _context.Purchases.Select(p => new PurchaseDTO
+        return _context.Purchases.Select(p => new PurchaseDto
         {
             Id = p.Id,
             SaleId = p.SaleId,
@@ -27,10 +27,10 @@ public class PurchaseService : IPurchaseService
         }).ToList();
     }
 
-    public PurchaseDTO? GetById(int id)
+    public PurchaseDto? GetById(int id)
     {
         var purchase = _context.Purchases.Find(id);
-        return purchase == null ? null : new PurchaseDTO
+        return purchase == null ? null : new PurchaseDto
         {
             Id = purchase.Id,
             SaleId = purchase.SaleId,
@@ -41,7 +41,7 @@ public class PurchaseService : IPurchaseService
         };
     }
 
-    public PurchaseDTO Create(PurchaseDTO purchaseDto)
+    public PurchaseDto Create(PurchaseDto purchaseDto)
     {
         var purchase = new Purchase
         {
@@ -57,7 +57,7 @@ public class PurchaseService : IPurchaseService
         return purchaseDto;
     }
 
-    public bool Update(int id, PurchaseDTO purchaseDto)
+    public bool Update(int id, PurchaseDto purchaseDto)
     {
         var purchase = _context.Purchases.Find(id);
         if (purchase == null) return false;
@@ -79,12 +79,12 @@ public class PurchaseService : IPurchaseService
         return true;
     }
 
-    public IEnumerable<PurchaseDTO> GetTopPurchases(int topN)
+    public IEnumerable<PurchaseDto> GetTopPurchases(int topN)
     {
         return _context.Purchases
             .OrderByDescending(p => p.TotalPrice)
             .Take(topN)
-            .Select(p => new PurchaseDTO
+            .Select(p => new PurchaseDto
             {
                 Id = p.Id,
                 SaleId = p.SaleId,

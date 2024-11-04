@@ -14,9 +14,9 @@ public class StoreService : IStoreService
         _context = context;
     }
 
-    public IEnumerable<StoreDTO> GetAll()
+    public IEnumerable<StoreDto> GetAll()
     {
-        return _context.Stores.Select(s => new StoreDTO
+        return _context.Stores.Select(s => new StoreDto
         {
             Id = s!.Id,
             Name = s.Name ?? string.Empty,
@@ -24,10 +24,10 @@ public class StoreService : IStoreService
         }).ToList();
     }
 
-    public StoreDTO? GetById(int id)
+    public StoreDto? GetById(int id)
     {
         var store = _context.Stores.Find(id);
-        return store == null ? null : new StoreDTO
+        return store == null ? null : new StoreDto
         {
             Id = store.Id,
             Name = store.Name ?? string.Empty,
@@ -35,7 +35,7 @@ public class StoreService : IStoreService
         };
     }
 
-    public StoreDTO Create(StoreDTO storeDto)
+    public StoreDto Create(StoreDto storeDto)
     {
         var store = new Store
         {
@@ -48,7 +48,7 @@ public class StoreService : IStoreService
         return storeDto;
     }
 
-    public bool Update(int id, StoreDTO storeDto)
+    public bool Update(int id, StoreDto storeDto)
     {
         var store = _context.Stores.Find(id);
         if (store == null) return false;
@@ -69,11 +69,11 @@ public class StoreService : IStoreService
         return true;
     }
 
-    public IEnumerable<ProductDTO> GetProductsByStoreId(int storeId)
+    public IEnumerable<ProductDto> GetProductsByStoreId(int storeId)
     {
         return _context.Stocks
             .Where(stock => stock.StoreId == storeId && stock.Quantity > 0)
-            .Select(stock => new ProductDTO
+            .Select(stock => new ProductDto
             {
                 Id = stock.Product!.Id ,
                 Barcode = stock.Product.Barcode,
@@ -99,11 +99,11 @@ public class StoreService : IStoreService
             });
     }
 
-    public IEnumerable<StoreDTO> GetStoresWithStockForProduct(int productId)
+    public IEnumerable<StoreDto> GetStoresWithStockForProduct(int productId)
     {
         return _context.Stocks
             .Where(stock => stock.ProductId == productId && stock.Quantity > 0 && stock.Store != null)
-            .Select(stock => new StoreDTO
+            .Select(stock => new StoreDto
             {
                 Id = stock.Store!.Id,          
                 Name = stock.Store.Name ?? string.Empty,

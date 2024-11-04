@@ -15,19 +15,19 @@ public class ProductGroupService : IProductGroupService
         _context = context;
     }
 
-    public IEnumerable<ProductGroupDTO> GetAll()
+    public IEnumerable<ProductGroupDto> GetAll()
     {
-        return _context.ProductGroups.Select(pg => new ProductGroupDTO
+        return _context.ProductGroups.Select(pg => new ProductGroupDto
         {
             Id = pg.Id,
             Name = pg.Name ?? string.Empty
         }).ToList();
     }
 
-    public ProductGroupDTO? GetById(int id)
+    public ProductGroupDto? GetById(int id)
     {
         var productGroup = _context.ProductGroups.Find(id);
-        return productGroup == null ? null : new ProductGroupDTO
+        return productGroup == null ? null : new ProductGroupDto
         {
             Id = productGroup.Id,
             Name = productGroup.Name ?? string.Empty 
@@ -35,7 +35,7 @@ public class ProductGroupService : IProductGroupService
     }
 
 
-    public ProductGroupDTO Create(ProductGroupDTO productGroupDto)
+    public ProductGroupDto Create(ProductGroupDto productGroupDto)
     {
         var productGroup = new ProductGroup
         {
@@ -47,7 +47,7 @@ public class ProductGroupService : IProductGroupService
         return productGroupDto;
     }
 
-    public bool Update(int id, ProductGroupDTO productGroupDto)
+    public bool Update(int id, ProductGroupDto productGroupDto)
     {
         var productGroup = _context.ProductGroups.Find(id);
         if (productGroup == null) return false;

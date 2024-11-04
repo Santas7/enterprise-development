@@ -1,6 +1,6 @@
 ﻿namespace ShopSalesManagement.Api.DTOs;
 
-public class PurchaseDTO
+public class PurchaseDto
 {
     public int Id { get; set; }
     public int SaleId { get; set; }  

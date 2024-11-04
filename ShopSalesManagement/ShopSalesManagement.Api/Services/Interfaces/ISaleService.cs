@@ -5,10 +5,10 @@ namespace ShopSalesManagement.Api.Services;
 
 public interface ISaleService
 {
-    IEnumerable<SaleDTO> GetAll();
-    SaleDTO? GetById(int id);
-    SaleDTO Create(SaleDTO saleDto);
-    bool Update(int id, SaleDTO saleDto);
+    IEnumerable<SaleDto> GetAll();
+    SaleDto? GetById(int id);
+    SaleDto Create(SaleDto saleDto);
+    bool Update(int id, SaleDto saleDto);
     bool Delete(int id);
-    IEnumerable<StoreDTO> GetStoresWithSalesAbove(decimal threshold, DateTime startDate, DateTime endDate);
+    IEnumerable<StoreDto> GetStoresWithSalesAbove(decimal threshold, DateTime startDate, DateTime endDate);
 }

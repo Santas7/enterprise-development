@@ -28,10 +28,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Инициализация списков для хранения данных
-builder.Services.AddSingleton<List<ProductDTO>>();
-builder.Services.AddSingleton<List<StockDTO>>();
-builder.Services.AddSingleton<List<StoreDTO>>();
-builder.Services.AddSingleton<List<SaleDTO>>();
+builder.Services.AddSingleton<List<ProductDto>>();
+builder.Services.AddSingleton<List<StockDto>>();
+builder.Services.AddSingleton<List<StoreDto>>();
+builder.Services.AddSingleton<List<SaleDto>>();
 
 // Регистрация кастомных сервисов для каждой сущности
 builder.Services.AddScoped<CustomerService>();

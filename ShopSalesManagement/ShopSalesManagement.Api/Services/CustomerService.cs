@@ -12,10 +12,10 @@ public class CustomerService : ICustomerService
         _context = context;
     }
 
-    public IEnumerable<CustomerDTO> GetAll()
+    public IEnumerable<CustomerDto> GetAll()
     {
         return _context.Customers
-            .Select(c => new CustomerDTO
+            .Select(c => new CustomerDto
             {
                 Id = c.Id,
                 CardNumber = c.CardNumber,
@@ -24,10 +24,10 @@ public class CustomerService : ICustomerService
             .ToList();
     }
 
-    public CustomerDTO? GetById(int id)
+    public CustomerDto? GetById(int id)
     {
         var customer = _context.Customers.Find(id);
-        return customer == null ? null : new CustomerDTO
+        return customer == null ? null : new CustomerDto
         {
             Id = customer.Id,
             CardNumber = customer.CardNumber,
@@ -35,7 +35,7 @@ public class CustomerService : ICustomerService
         };
     }
 
-    public CustomerDTO Create(CustomerDTO customerDto)
+    public CustomerDto Create(CustomerDto customerDto)
     {
         var customer = new Customer
         {
@@ -50,7 +50,7 @@ public class CustomerService : ICustomerService
         return customerDto;
     }
 
-    public bool Update(int id, CustomerDTO customerDto)
+    public bool Update(int id, CustomerDto customerDto)
     {
         var customer = _context.Customers.Find(id);
         if (customer == null) return false;

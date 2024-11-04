@@ -21,7 +21,7 @@ public class CustomerController : ControllerBase
     /// </summary>
     /// <returns>Список покупателей.</returns>
     [HttpGet]
-    public ActionResult<IEnumerable<CustomerDTO>> GetCustomers()
+    public ActionResult<IEnumerable<CustomerDto>> GetCustomers()
     {
         var customers = _customerService.GetAll();
         return Ok(customers);
@@ -33,7 +33,7 @@ public class CustomerController : ControllerBase
     /// <param name="id">Идентификатор покупателя.</param>
     /// <returns>Покупатель с указанным ID или статус 404, если покупатель не найден.</returns>
     [HttpGet("{id}")]
-    public ActionResult<CustomerDTO> GetCustomer(int id)
+    public ActionResult<CustomerDto> GetCustomer(int id)
     {
         var customer = _customerService.GetById(id);
         if (customer == null) return NotFound();
@@ -46,7 +46,7 @@ public class CustomerController : ControllerBase
     /// <param name="customerDto">Данные покупателя для создания.</param>
     /// <returns>Созданный покупатель с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<CustomerDTO> CreateCustomer([FromBody] CustomerDTO customerDto)
+    public ActionResult<CustomerDto> CreateCustomer([FromBody] CustomerDto customerDto)
     {
         var customer = _customerService.Create(customerDto);
         return CreatedAtAction(nameof(GetCustomer), new { id = customer.Id }, customer);
@@ -59,7 +59,7 @@ public class CustomerController : ControllerBase
     /// <param name="customerDto">Новые данные покупателя.</param>
     /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если покупатель не найден.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateCustomer(int id, [FromBody] CustomerDTO customerDto)
+    public IActionResult UpdateCustomer(int id, [FromBody] CustomerDto customerDto)
     {
         if (!_customerService.Update(id, customerDto)) return NotFound();
         return NoContent();

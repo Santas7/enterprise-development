@@ -21,7 +21,7 @@ public class StockController : ControllerBase
     /// </summary>
     /// <returns>Список всех записей о наличии товара.</returns>
     [HttpGet]
-    public ActionResult<IEnumerable<StockDTO>> GetStocks()
+    public ActionResult<IEnumerable<StockDto>> GetStocks()
     {
         var stocks = _stockService.GetAll();
         return Ok(stocks);
@@ -33,7 +33,7 @@ public class StockController : ControllerBase
     /// <param name="id">Идентификатор записи о наличии товара.</param>
     /// <returns>Запись о наличии товара с указанным ID или статус 404, если запись не найдена.</returns>
     [HttpGet("{id}")]
-    public ActionResult<StockDTO> GetStock(int id)
+    public ActionResult<StockDto> GetStock(int id)
     {
         var stock = _stockService.GetById(id);
         if (stock == null) return NotFound();
@@ -46,7 +46,7 @@ public class StockController : ControllerBase
     /// <param name="stockDto">Данные для создания записи о наличии товара.</param>
     /// <returns>Созданная запись о наличии товара с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<StockDTO> CreateStock([FromBody] StockDTO stockDto)
+    public ActionResult<StockDto> CreateStock([FromBody] StockDto stockDto)
     {
         var stock = _stockService.Create(stockDto);
         return CreatedAtAction(nameof(GetStock), new { id = stock.Id }, stock);
@@ -59,7 +59,7 @@ public class StockController : ControllerBase
     /// <param name="stockDto">Новые данные для обновления записи о наличии товара.</param>
     /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если запись не найдена.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateStock(int id, [FromBody] StockDTO stockDto)
+    public IActionResult UpdateStock(int id, [FromBody] StockDto stockDto)
     {
         if (!_stockService.Update(id, stockDto)) return NotFound();
         return NoContent();
@@ -82,7 +82,7 @@ public class StockController : ControllerBase
     /// </summary>
     /// <returns>Список истекших продуктов.</returns>
     [HttpGet("expired")]
-    public ActionResult<IEnumerable<ProductDTO>> GetExpiredProducts()
+    public ActionResult<IEnumerable<ProductDto>> GetExpiredProducts()
     {
         var expiredProducts = _stockService.GetExpiredProducts();
         return Ok(expiredProducts);

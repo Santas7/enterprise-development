@@ -21,7 +21,7 @@ public class PurchaseController : ControllerBase
     /// </summary>
     /// <returns>Список всех покупок.</returns>
     [HttpGet]
-    public ActionResult<IEnumerable<PurchaseDTO>> GetPurchases()
+    public ActionResult<IEnumerable<PurchaseDto>> GetPurchases()
     {
         var purchases = _purchaseService.GetAll();
         return Ok(purchases);
@@ -33,7 +33,7 @@ public class PurchaseController : ControllerBase
     /// <param name="id">Идентификатор покупки.</param>
     /// <returns>Покупка с указанным ID или статус 404, если покупка не найдена.</returns>
     [HttpGet("{id}")]
-    public ActionResult<PurchaseDTO> GetPurchase(int id)
+    public ActionResult<PurchaseDto> GetPurchase(int id)
     {
         var purchase = _purchaseService.GetById(id);
         if (purchase == null) return NotFound();
@@ -46,7 +46,7 @@ public class PurchaseController : ControllerBase
     /// <param name="purchaseDto">Данные для создания покупки.</param>
     /// <returns>Созданная покупка с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<PurchaseDTO> CreatePurchase([FromBody] PurchaseDTO purchaseDto)
+    public ActionResult<PurchaseDto> CreatePurchase([FromBody] PurchaseDto purchaseDto)
     {
         var purchase = _purchaseService.Create(purchaseDto);
         return CreatedAtAction(nameof(GetPurchase), new { id = purchase.Id }, purchase);
@@ -59,7 +59,7 @@ public class PurchaseController : ControllerBase
     /// <param name="purchaseDto">Новые данные покупки.</param>
     /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если покупка не найдена.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdatePurchase(int id, [FromBody] PurchaseDTO purchaseDto)
+    public IActionResult UpdatePurchase(int id, [FromBody] PurchaseDto purchaseDto)
     {
         if (!_purchaseService.Update(id, purchaseDto)) return NotFound();
         return NoContent();
@@ -83,7 +83,7 @@ public class PurchaseController : ControllerBase
     /// <param name="topN">Количество покупок для возврата.</param>
     /// <returns>Список топ-N покупок.</returns>
     [HttpGet("top/{topN}")]
-    public ActionResult<IEnumerable<PurchaseDTO>> GetTopPurchases(int topN)
+    public ActionResult<IEnumerable<PurchaseDto>> GetTopPurchases(int topN)
     {
         var purchases = _purchaseService.GetTopPurchases(topN);
         return Ok(purchases);

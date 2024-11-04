@@ -1,6 +1,6 @@
 ﻿namespace ShopSalesManagement.Api.DTOs;
 
-public class StoreDTO
+public class StoreDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;  

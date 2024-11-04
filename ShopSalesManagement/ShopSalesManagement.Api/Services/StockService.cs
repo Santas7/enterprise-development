@@ -15,9 +15,9 @@ public class StockService : IStockService
         _context = context;
     }
 
-    public IEnumerable<StockDTO> GetAll()
+    public IEnumerable<StockDto> GetAll()
     {
-        return _context.Stocks.Select(s => new StockDTO
+        return _context.Stocks.Select(s => new StockDto
         {
             Id = s.Id,
             ProductId = s.ProductId,
@@ -26,10 +26,10 @@ public class StockService : IStockService
         }).ToList();
     }
 
-    public StockDTO? GetById(int id)
+    public StockDto? GetById(int id)
     {
         var stock = _context.Stocks.Find(id);
-        return stock == null ? null : new StockDTO
+        return stock == null ? null : new StockDto
         {
             Id = stock.Id,
             ProductId = stock.ProductId,
@@ -38,7 +38,7 @@ public class StockService : IStockService
         };
     }
 
-    public StockDTO Create(StockDTO stockDto)
+    public StockDto Create(StockDto stockDto)
     {
         var stock = new Stock
         {
@@ -52,7 +52,7 @@ public class StockService : IStockService
         return stockDto;
     }
 
-    public bool Update(int id, StockDTO stockDto)
+    public bool Update(int id, StockDto stockDto)
     {
         var stock = _context.Stocks.Find(id);
         if (stock == null) return false;
@@ -74,11 +74,11 @@ public class StockService : IStockService
         return true;
     }
 
-    public IEnumerable<StockDTO> GetStockByStore(int storeId)
+    public IEnumerable<StockDto> GetStockByStore(int storeId)
     {
         return _context.Stocks
             .Where(s => s.StoreId == storeId)
-            .Select(s => new StockDTO
+            .Select(s => new StockDto
             {
                 Id = s.Id,
                 ProductId = s.ProductId,
@@ -87,11 +87,11 @@ public class StockService : IStockService
             }).ToList();
     }
 
-    public IEnumerable<StockDTO> GetStockBelowThreshold(int threshold)
+    public IEnumerable<StockDto> GetStockBelowThreshold(int threshold)
     {
         return _context.Stocks
             .Where(s => s.Quantity < threshold)
-            .Select(s => new StockDTO
+            .Select(s => new StockDto
             {
                 Id = s.Id,
                 ProductId = s.ProductId,
@@ -100,12 +100,12 @@ public class StockService : IStockService
             }).ToList();
     }
 
-    public IEnumerable<ProductDTO> GetExpiredProducts()
+    public IEnumerable<ProductDto> GetExpiredProducts()
     {
         var today = DateTime.Today; 
         return _context.Stocks
             .Where(stock => stock.Quantity > 0 && stock.Product!.ExpirationDate < today) 
-            .Select(stock => new ProductDTO
+            .Select(stock => new ProductDto
             {
                 Id = stock.Product!.Id,
                 Barcode = stock.Product.Barcode,

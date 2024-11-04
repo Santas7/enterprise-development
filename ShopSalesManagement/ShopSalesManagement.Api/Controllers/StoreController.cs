@@ -21,7 +21,7 @@ public class StoreController : ControllerBase
     /// </summary>
     /// <returns>Список всех магазинов.</returns>
     [HttpGet]
-    public ActionResult<IEnumerable<StoreDTO>> GetStores()
+    public ActionResult<IEnumerable<StoreDto>> GetStores()
     {
         var stores = _storeService.GetAll();
         return Ok(stores);
@@ -33,7 +33,7 @@ public class StoreController : ControllerBase
     /// <param name="id">Идентификатор магазина.</param>
     /// <returns>Магазин с указанным ID или статус 404, если магазин не найден.</returns>
     [HttpGet("{id}")]
-    public ActionResult<StoreDTO> GetStore(int id)
+    public ActionResult<StoreDto> GetStore(int id)
     {
         var store = _storeService.GetById(id);
         if (store == null) return NotFound();
@@ -46,7 +46,7 @@ public class StoreController : ControllerBase
     /// <param name="storeDto">Данные для создания магазина.</param>
     /// <returns>Созданный магазин с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<StoreDTO> CreateStore([FromBody] StoreDTO storeDto)
+    public ActionResult<StoreDto> CreateStore([FromBody] StoreDto storeDto)
     {
         var store = _storeService.Create(storeDto);
         return CreatedAtAction(nameof(GetStore), new { id = store.Id }, store);
@@ -59,7 +59,7 @@ public class StoreController : ControllerBase
     /// <param name="storeDto">Новые данные для обновления магазина.</param>
     /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если магазин не найден.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateStore(int id, [FromBody] StoreDTO storeDto)
+    public IActionResult UpdateStore(int id, [FromBody] StoreDto storeDto)
     {
         if (!_storeService.Update(id, storeDto)) return NotFound();
         return NoContent();
@@ -83,7 +83,7 @@ public class StoreController : ControllerBase
     /// <param name="storeId">Идентификатор магазина.</param>
     /// <returns>Список продуктов в указанном магазине.</returns>
     [HttpGet("{storeId}/products")]
-    public ActionResult<IEnumerable<ProductDTO>> GetProductsInStore(int storeId)
+    public ActionResult<IEnumerable<ProductDto>> GetProductsInStore(int storeId)
     {
         var products = _storeService.GetProductsByStoreId(storeId);
         return Ok(products);

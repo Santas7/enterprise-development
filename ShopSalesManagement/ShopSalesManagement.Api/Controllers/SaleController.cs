@@ -21,7 +21,7 @@ public class SaleController : ControllerBase
     /// </summary>
     /// <returns>Список всех продаж.</returns>
     [HttpGet]
-    public ActionResult<IEnumerable<SaleDTO>> GetSales()
+    public ActionResult<IEnumerable<SaleDto>> GetSales()
     {
         var sales = _saleService.GetAll();
         return Ok(sales);
@@ -33,7 +33,7 @@ public class SaleController : ControllerBase
     /// <param name="id">Идентификатор продажи.</param>
     /// <returns>Продажа с указанным ID или статус 404, если продажа не найдена.</returns>
     [HttpGet("{id}")]
-    public ActionResult<SaleDTO> GetSale(int id)
+    public ActionResult<SaleDto> GetSale(int id)
     {
         var sale = _saleService.GetById(id);
         if (sale == null) return NotFound();
@@ -46,7 +46,7 @@ public class SaleController : ControllerBase
     /// <param name="saleDto">Данные для создания продажи.</param>
     /// <returns>Созданная продажа с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<SaleDTO> CreateSale([FromBody] SaleDTO saleDto)
+    public ActionResult<SaleDto> CreateSale([FromBody] SaleDto saleDto)
     {
         var sale = _saleService.Create(saleDto);
         return CreatedAtAction(nameof(GetSale), new { id = sale.Id }, sale);
@@ -59,7 +59,7 @@ public class SaleController : ControllerBase
     /// <param name="saleDto">Новые данные продажи.</param>
     /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если продажа не найдена.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateSale(int id, [FromBody] SaleDTO saleDto)
+    public IActionResult UpdateSale(int id, [FromBody] SaleDto saleDto)
     {
         if (!_saleService.Update(id, saleDto)) return NotFound();
         return NoContent();
@@ -83,7 +83,7 @@ public class SaleController : ControllerBase
     /// <param name="threshold">Минимальная сумма продаж для фильтрации магазинов.</param>
     /// <returns>Список магазинов с продажами выше указанного порога.</returns>
     [HttpGet("stores/sales-above/{threshold}")]
-    public ActionResult<IEnumerable<StoreDTO>> GetStoresWithSalesAbove(decimal threshold)
+    public ActionResult<IEnumerable<StoreDto>> GetStoresWithSalesAbove(decimal threshold)
     {
         var startDate = DateTime.Now.AddMonths(-1);
         var endDate = DateTime.Now;

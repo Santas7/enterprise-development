@@ -5,12 +5,12 @@ namespace ShopSalesManagement.Api.Services;
 
 public interface IStoreService
 {
-    IEnumerable<StoreDTO> GetAll();
-    StoreDTO? GetById(int id);
-    StoreDTO Create(StoreDTO storeDto);
-    bool Update(int id, StoreDTO storeDto);
+    IEnumerable<StoreDto> GetAll();
+    StoreDto? GetById(int id);
+    StoreDto Create(StoreDto storeDto);
+    bool Update(int id, StoreDto storeDto);
     bool Delete(int id);
-    IEnumerable<StoreDTO> GetStoresWithStockForProduct(int productId);
-    IEnumerable<ProductDTO> GetProductsByStoreId(int storeId); 
+    IEnumerable<StoreDto> GetStoresWithStockForProduct(int productId);
+    IEnumerable<ProductDto> GetProductsByStoreId(int storeId); 
     Dictionary<int, Dictionary<int, decimal>> GetAveragePriceByProductGroup();
 }

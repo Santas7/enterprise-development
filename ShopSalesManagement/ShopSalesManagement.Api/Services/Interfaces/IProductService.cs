@@ -4,10 +4,10 @@ namespace ShopSalesManagement.Api.Services;
 
 public interface IProductService
 {
-    IEnumerable<ProductDTO> GetAll();
-    ProductDTO? GetById(int id);
-    ProductDTO Create(ProductDTO productDto);
-    bool Update(int id, ProductDTO productDto);
+    IEnumerable<ProductDto> GetAll();
+    ProductDto? GetById(int id);
+    ProductDto Create(ProductDto productDto);
+    bool Update(int id, ProductDto productDto);
     bool Delete(int id);
-    IEnumerable<StoreDTO> GetStoresWithProduct(int productId);
+    IEnumerable<StoreDto> GetStoresWithProduct(int productId);
 }

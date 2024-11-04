@@ -21,7 +21,7 @@ public class ProductGroupController : ControllerBase
     /// </summary>
     /// <returns>Список товарных групп.</returns>
     [HttpGet]
-    public ActionResult<IEnumerable<ProductGroupDTO>> GetProductGroups()
+    public ActionResult<IEnumerable<ProductGroupDto>> GetProductGroups()
     {
         var productGroups = _productGroupService.GetAll();
         return Ok(productGroups);
@@ -33,7 +33,7 @@ public class ProductGroupController : ControllerBase
     /// <param name="id">Идентификатор товарной группы.</param>
     /// <returns>Товарная группа с указанным ID или статус 404, если группа не найдена.</returns>
     [HttpGet("{id}")]
-    public ActionResult<ProductGroupDTO> GetProductGroup(int id)
+    public ActionResult<ProductGroupDto> GetProductGroup(int id)
     {
         var productGroup = _productGroupService.GetById(id);
         if (productGroup == null) return NotFound();
@@ -46,7 +46,7 @@ public class ProductGroupController : ControllerBase
     /// <param name="productGroupDto">Данные товарной группы для создания.</param>
     /// <returns>Созданная товарная группа с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<ProductGroupDTO> CreateProductGroup([FromBody] ProductGroupDTO productGroupDto)
+    public ActionResult<ProductGroupDto> CreateProductGroup([FromBody] ProductGroupDto productGroupDto)
     {
         var productGroup = _productGroupService.Create(productGroupDto);
         return CreatedAtAction(nameof(GetProductGroup), new { id = productGroup.Id }, productGroup);
@@ -59,7 +59,7 @@ public class ProductGroupController : ControllerBase
     /// <param name="productGroupDto">Новые данные товарной группы.</param>
     /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если группа не найдена.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateProductGroup(int id, [FromBody] ProductGroupDTO productGroupDto)
+    public IActionResult UpdateProductGroup(int id, [FromBody] ProductGroupDto productGroupDto)
     {
         if (!_productGroupService.Update(id, productGroupDto)) return NotFound();
         return NoContent();

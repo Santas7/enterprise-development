@@ -21,7 +21,7 @@ public class ProductController : ControllerBase
     /// </summary>
     /// <returns>Список товаров.</returns>
     [HttpGet]
-    public ActionResult<IEnumerable<ProductDTO>> GetProducts()
+    public ActionResult<IEnumerable<ProductDto>> GetProducts()
     {
         var products = _productService.GetAll();
         return Ok(products);
@@ -33,7 +33,7 @@ public class ProductController : ControllerBase
     /// <param name="id">Идентификатор товара.</param>
     /// <returns>Товар с указанным ID или статус 404, если товар не найден.</returns>
     [HttpGet("{id}")]
-    public ActionResult<ProductDTO> GetProduct(int id)
+    public ActionResult<ProductDto> GetProduct(int id)
     {
         var product = _productService.GetById(id);
         if (product == null) return NotFound();
@@ -46,7 +46,7 @@ public class ProductController : ControllerBase
     /// <param name="productDto">Данные товара для создания.</param>
     /// <returns>Созданный товар с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<ProductDTO> CreateProduct([FromBody] ProductDTO productDto)
+    public ActionResult<ProductDto> CreateProduct([FromBody] ProductDto productDto)
     {
         var product = _productService.Create(productDto);
         return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
@@ -59,7 +59,7 @@ public class ProductController : ControllerBase
     /// <param name="productDto">Новые данные товара.</param>
     /// <returns>Статус 204, если обновление прошло успешно, или статус 404, если товар не найден.</returns>
     [HttpPut("{id}")]
-    public IActionResult UpdateProduct(int id, [FromBody] ProductDTO productDto)
+    public IActionResult UpdateProduct(int id, [FromBody] ProductDto productDto)
     {
         if (!_productService.Update(id, productDto)) return NotFound();
         return NoContent();
@@ -83,7 +83,7 @@ public class ProductController : ControllerBase
     /// <param name="productId">Идентификатор товара.</param>
     /// <returns>Список магазинов, где доступен товар.</returns>
     [HttpGet("{productId}/stores")]
-    public ActionResult<IEnumerable<StoreDTO>> GetStoresForProduct(int productId)
+    public ActionResult<IEnumerable<StoreDto>> GetStoresForProduct(int productId)
     {
         var stores = _productService.GetStoresWithProduct(productId);
         return Ok(stores);

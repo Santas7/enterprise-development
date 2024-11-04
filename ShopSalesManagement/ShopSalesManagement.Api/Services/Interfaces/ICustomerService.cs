@@ -4,9 +4,9 @@ namespace ShopSalesManagement.Api.Services;
 
 public interface ICustomerService
 {
-    IEnumerable<CustomerDTO> GetAll();
-    CustomerDTO? GetById(int id);
-    CustomerDTO Create(CustomerDTO customerDto);
-    bool Update(int id, CustomerDTO customerDto);
+    IEnumerable<CustomerDto> GetAll();
+    CustomerDto? GetById(int id);
+    CustomerDto Create(CustomerDto customerDto);
+    bool Update(int id, CustomerDto customerDto);
     bool Delete(int id);
 }

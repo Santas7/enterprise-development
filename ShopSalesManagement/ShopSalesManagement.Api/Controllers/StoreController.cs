@@ -45,9 +45,9 @@ public class StoreController : ControllerBase
     /// <param name="storeDto">Данные для создания магазина.</param>
     /// <returns>Созданный магазин с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<StoreDto> CreateStore([FromBody] StoreDto storeDto)
+    public ActionResult<StoreDto> CreateStore([FromBody] StoreCreateDto storeCreateDto)
     {
-        var store = _storeService.Create(storeDto);
+        var store = _storeService.Create(storeCreateDto);
         return CreatedAtAction(nameof(GetStore), new { id = store.Id }, store);
     }
 

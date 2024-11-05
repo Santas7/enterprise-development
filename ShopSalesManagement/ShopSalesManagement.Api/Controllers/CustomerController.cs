@@ -45,9 +45,9 @@ public class CustomerController : ControllerBase
     /// <param name="customerDto">Данные покупателя для создания.</param>
     /// <returns>Созданный покупатель с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<CustomerDto> CreateCustomer([FromBody] CustomerDto customerDto)
+    public ActionResult<CustomerDto> CreateCustomer([FromBody] CustomerCreateDto customerCreateDto)
     {
-        var customer = _customerService.Create(customerDto);
+        var customer = _customerService.Create(customerCreateDto);
         return CreatedAtAction(nameof(GetCustomer), new { id = customer.Id }, customer);
     }
 

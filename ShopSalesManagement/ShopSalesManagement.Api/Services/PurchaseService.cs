@@ -40,20 +40,28 @@ public class PurchaseService : IPurchaseService
         };
     }
 
-    public PurchaseDto Create(PurchaseDto purchaseDto)
+    public PurchaseDto Create(PurchaseCreateDto purchaseCreateDto)
     {
         var purchase = new Purchase
         {
-            SaleId = purchaseDto.SaleId,
-            ProductId = purchaseDto.ProductId,
-            Quantity = purchaseDto.Quantity,
-            UnitPrice = purchaseDto.UnitPrice,
-            TotalPrice = purchaseDto.TotalPrice
+            SaleId = purchaseCreateDto.SaleId,
+            ProductId = purchaseCreateDto.ProductId,
+            Quantity = purchaseCreateDto.Quantity,
+            UnitPrice = purchaseCreateDto.UnitPrice,
+            TotalPrice = purchaseCreateDto.TotalPrice
         };
         _context.Purchases.Add(purchase);
         _context.SaveChanges();
-        purchaseDto.Id = purchase.Id;
-        return purchaseDto;
+
+        return new PurchaseDto
+        {
+            Id = purchase.Id,
+            SaleId = purchase.SaleId,
+            ProductId = purchase.ProductId,
+            Quantity = purchase.Quantity,
+            UnitPrice = purchase.UnitPrice,
+            TotalPrice = purchase.TotalPrice
+        };
     }
 
     public bool Update(int id, PurchaseDto purchaseDto)

@@ -38,13 +38,20 @@ public class SaleService : ISaleService
         };
     }
 
-    public SaleDto Create(SaleDto saleDto)
+    public SaleDto Create(SaleCreateDto saleCreateDto)
     {
-        var sale = new Sale(saleDto.SaleDate, saleDto.CustomerId, saleDto.StoreId, saleDto.TotalAmount);
+        var sale = new Sale(saleCreateDto.SaleDate, saleCreateDto.CustomerId, saleCreateDto.StoreId, saleCreateDto.TotalAmount);
         _context.Sales.Add(sale);
         _context.SaveChanges();
-        saleDto.Id = sale.Id;
-        return saleDto;
+
+        return new SaleDto
+        {
+            Id = sale.Id,
+            SaleDate = sale.SaleDate,
+            CustomerId = sale.CustomerId,
+            StoreId = sale.StoreId,
+            TotalAmount = sale.TotalAmount
+        };
     }
 
 

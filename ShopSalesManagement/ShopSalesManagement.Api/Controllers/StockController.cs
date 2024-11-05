@@ -45,9 +45,9 @@ public class StockController : ControllerBase
     /// <param name="stockDto">Данные для создания записи о наличии товара.</param>
     /// <returns>Созданная запись о наличии товара с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<StockDto> CreateStock([FromBody] StockDto stockDto)
+    public ActionResult<StockDto> CreateStock([FromBody] StockCreateDto stockCreateDto)
     {
-        var stock = _stockService.Create(stockDto);
+        var stock = _stockService.Create(stockCreateDto);
         return CreatedAtAction(nameof(GetStock), new { id = stock.Id }, stock);
     }
 

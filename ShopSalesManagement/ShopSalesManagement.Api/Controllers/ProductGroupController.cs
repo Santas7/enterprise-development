@@ -45,9 +45,9 @@ public class ProductGroupController : ControllerBase
     /// <param name="productGroupDto">Данные товарной группы для создания.</param>
     /// <returns>Созданная товарная группа с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<ProductGroupDto> CreateProductGroup([FromBody] ProductGroupDto productGroupDto)
+    public ActionResult<ProductGroupDto> CreateProductGroup([FromBody] ProductGroupCreateDto productGroupCreateDto)
     {
-        var productGroup = _productGroupService.Create(productGroupDto);
+        var productGroup = _productGroupService.Create(productGroupCreateDto);
         return CreatedAtAction(nameof(GetProductGroup), new { id = productGroup.Id }, productGroup);
     }
 

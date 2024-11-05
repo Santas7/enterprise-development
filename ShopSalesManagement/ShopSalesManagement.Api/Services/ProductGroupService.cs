@@ -33,16 +33,21 @@ public class ProductGroupService : IProductGroupService
     }
 
 
-    public ProductGroupDto Create(ProductGroupDto productGroupDto)
+    public ProductGroupDto Create(ProductGroupCreateDto productGroupCreateDto)
     {
         var productGroup = new ProductGroup
         {
-            Name = productGroupDto.Name
+            Name = productGroupCreateDto.Name
         };
+
         _context.ProductGroups.Add(productGroup);
         _context.SaveChanges();
-        productGroupDto.Id = productGroup.Id;
-        return productGroupDto;
+
+        return new ProductGroupDto
+        {
+            Id = productGroup.Id,
+            Name = productGroup.Name
+        };
     }
 
     public bool Update(int id, ProductGroupDto productGroupDto)

@@ -6,7 +6,7 @@ public interface IPurchaseService
 {
     IEnumerable<PurchaseDto> GetAll();
     PurchaseDto? GetById(int id);
-    PurchaseDto Create(PurchaseDto purchaseDto);
+    PurchaseDto Create(PurchaseCreateDto purchaseCreateDto);
     bool Update(int id, PurchaseDto purchaseDto);
     bool Delete(int id);
     IEnumerable<PurchaseDto> GetTopPurchases(int topN);

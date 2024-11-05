@@ -45,9 +45,9 @@ public class PurchaseController : ControllerBase
     /// <param name="purchaseDto">Данные для создания покупки.</param>
     /// <returns>Созданная покупка с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<PurchaseDto> CreatePurchase([FromBody] PurchaseDto purchaseDto)
+    public ActionResult<PurchaseDto> CreatePurchase([FromBody] PurchaseCreateDto purchaseCreateDto)
     {
-        var purchase = _purchaseService.Create(purchaseDto);
+        var purchase = _purchaseService.Create(purchaseCreateDto);
         return CreatedAtAction(nameof(GetPurchase), new { id = purchase.Id }, purchase);
     }
 

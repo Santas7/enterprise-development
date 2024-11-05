@@ -6,7 +6,7 @@ public interface IStoreService
 {
     IEnumerable<StoreDto> GetAll();
     StoreDto? GetById(int id);
-    StoreDto Create(StoreDto storeDto);
+    StoreDto Create(StoreCreateDto storeCreateDto);
     bool Update(int id, StoreDto storeDto);
     bool Delete(int id);
     IEnumerable<StoreDto> GetStoresWithStockForProduct(int productId);

@@ -36,18 +36,24 @@ public class StockService : IStockService
         };
     }
 
-    public StockDto Create(StockDto stockDto)
+    public StockDto Create(StockCreateDto stockCreateDto)
     {
         var stock = new Stock
         {
-            ProductId = stockDto.ProductId,
-            StoreId = stockDto.StoreId,
-            Quantity = stockDto.Quantity
+            ProductId = stockCreateDto.ProductId,
+            StoreId = stockCreateDto.StoreId,
+            Quantity = stockCreateDto.Quantity
         };
         _context.Stocks.Add(stock);
         _context.SaveChanges();
-        stockDto.Id = stock.Id;
-        return stockDto;
+
+        return new StockDto
+        {
+            Id = stock.Id,
+            ProductId = stock.ProductId,
+            StoreId = stock.StoreId,
+            Quantity = stock.Quantity
+        };
     }
 
     public bool Update(int id, StockDto stockDto)

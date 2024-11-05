@@ -36,19 +36,23 @@ public class CustomerService : ICustomerService
         };
     }
 
-    public CustomerDto Create(CustomerDto customerDto)
+    public CustomerDto Create(CustomerCreateDto customerCreateDto)
     {
         var customer = new Customer
         {
-            CardNumber = customerDto.CardNumber,
-            FullName = customerDto.FullName
+            CardNumber = customerCreateDto.CardNumber,
+            FullName = customerCreateDto.FullName
         };
 
         _context.Customers.Add(customer);
         _context.SaveChanges();
 
-        customerDto.Id = customer.Id;
-        return customerDto;
+        return new CustomerDto
+        {
+            Id = customer.Id,
+            CardNumber = customer.CardNumber,
+            FullName = customer.FullName
+        };
     }
 
     public bool Update(int id, CustomerDto customerDto)

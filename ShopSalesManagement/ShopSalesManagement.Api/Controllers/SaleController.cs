@@ -45,9 +45,9 @@ public class SaleController : ControllerBase
     /// <param name="saleDto">Данные для создания продажи.</param>
     /// <returns>Созданная продажа с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<SaleDto> CreateSale([FromBody] SaleDto saleDto)
+    public ActionResult<SaleDto> CreateSale([FromBody] SaleCreateDto saleCreateDto)
     {
-        var sale = _saleService.Create(saleDto);
+        var sale = _saleService.Create(saleCreateDto);
         return CreatedAtAction(nameof(GetSale), new { id = sale.Id }, sale);
     }
 

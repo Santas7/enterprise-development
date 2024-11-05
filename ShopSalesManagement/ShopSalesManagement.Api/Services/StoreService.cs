@@ -34,17 +34,21 @@ public class StoreService : IStoreService
         };
     }
 
-    public StoreDto Create(StoreDto storeDto)
+    public StoreDto Create(StoreCreateDto storeCreateDto)
     {
         var store = new Store
         {
-            Name = storeDto.Name,
-            Address = storeDto.Address
+            Name = storeCreateDto.Name,
+            Address = storeCreateDto.Address
         };
         _context.Stores.Add(store);
         _context.SaveChanges();
-        storeDto.Id = store.Id; 
-        return storeDto;
+        return new StoreDto
+        {
+            Id = store.Id,
+            Name = store.Name,
+            Address = store.Address
+        };
     }
 
     public bool Update(int id, StoreDto storeDto)

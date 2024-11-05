@@ -6,7 +6,7 @@ public interface IStockService
 {
     IEnumerable<StockDto> GetAll();
     StockDto? GetById(int id);
-    StockDto Create(StockDto stockDto);
+    StockDto Create(StockCreateDto stockCreateDto);
     bool Update(int id, StockDto stockDto);
     bool Delete(int id);
     IEnumerable<StockDto> GetStockByStore(int storeId);

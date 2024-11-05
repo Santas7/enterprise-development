@@ -1,9 +1,5 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using ShopSalesManagement.Api.DTOs;
 using ShopSalesManagement.Api.Services;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ShopSalesManagement.Domain;
 using System.Reflection;

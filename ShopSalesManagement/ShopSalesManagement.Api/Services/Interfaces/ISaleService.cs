@@ -1,5 +1,4 @@
 ﻿using ShopSalesManagement.Api.DTOs;
-using System.Collections.Generic;
 
 namespace ShopSalesManagement.Api.Services.Interfaces;
 

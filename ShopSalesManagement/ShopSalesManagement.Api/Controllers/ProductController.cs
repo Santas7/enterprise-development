@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopSalesManagement.Api.DTOs;
 using ShopSalesManagement.Api.Services.Interfaces;
+using ShopSalesManagement.Domain;
 
 namespace ShopSalesManagement.Api.Controllers;
 
@@ -45,11 +47,12 @@ public class ProductController : ControllerBase
     /// <param name="productDto">Данные товара для создания.</param>
     /// <returns>Созданный товар с статусом 201.</returns>
     [HttpPost]
-    public ActionResult<ProductDto> CreateProduct([FromBody] ProductDto productDto)
+    public ActionResult<ProductDto> CreateProduct([FromBody] ProductCreateDto productCreateDto)
     {
-        var product = _productService.Create(productDto);
+        var product = _productService.Create(productCreateDto);
         return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
     }
+
 
     /// <summary>
     /// Обновить товар по ID.

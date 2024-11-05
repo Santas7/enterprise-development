@@ -28,21 +28,30 @@ public class ProductService : IProductService
         return new ProductDto { Id = product.Id, Name = product.Name, Price = product.Price };
     }
 
-    public ProductDto Create(ProductDto productDto)
+    public ProductDto Create(ProductCreateDto productCreateDto)
     {
         var product = new Product(
-            productDto.Barcode,
-            productDto.Name,
-            productDto.Type,
-            productDto.Price,
-            productDto.ExpirationDate
+            productCreateDto.Barcode,
+            productCreateDto.Name,
+            productCreateDto.Type,
+            productCreateDto.Price,
+            productCreateDto.ExpirationDate
         );
 
         _context.Products.Add(product);
         _context.SaveChanges();
 
-        productDto.Id = product.Id; 
-        return productDto;
+        return new ProductDto
+        {
+            Id = product.Id,
+            Barcode = product.Barcode,
+            ProductGroupId = product.ProductGroupId,
+            Name = product.Name,
+            PackageWeight = product.Weight,
+            Type = product.Type,
+            Price = product.Price,
+            ExpirationDate = product.ExpirationDate
+        };
     }
 
     public bool Update(int id, ProductDto productDto)

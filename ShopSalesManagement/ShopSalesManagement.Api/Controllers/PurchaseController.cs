@@ -42,7 +42,7 @@ public class PurchaseController : ControllerBase
     /// <summary>
     /// Создать новую покупку.
     /// </summary>
-    /// <param name="purchaseDto">Данные для создания покупки.</param>
+    /// <param name="purchaseCreateDto">Данные для создания покупки.</param>
     /// <returns>Созданная покупка с статусом 201.</returns>
     [HttpPost]
     public ActionResult<PurchaseDto> CreatePurchase([FromBody] PurchaseCreateDto purchaseCreateDto)

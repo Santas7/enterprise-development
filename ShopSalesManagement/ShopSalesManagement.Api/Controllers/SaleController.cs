@@ -42,7 +42,7 @@ public class SaleController : ControllerBase
     /// <summary>
     /// Создать новую продажу.
     /// </summary>
-    /// <param name="saleDto">Данные для создания продажи.</param>
+    /// <param name="saleCreateDto">Данные для создания продажи.</param>
     /// <returns>Созданная продажа с статусом 201.</returns>
     [HttpPost]
     public ActionResult<SaleDto> CreateSale([FromBody] SaleCreateDto saleCreateDto)

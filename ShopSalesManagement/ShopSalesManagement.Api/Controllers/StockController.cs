@@ -42,7 +42,7 @@ public class StockController : ControllerBase
     /// <summary>
     /// Создать новую запись о наличии товара.
     /// </summary>
-    /// <param name="stockDto">Данные для создания записи о наличии товара.</param>
+    /// <param name="stockCreateDto">Данные для создания записи о наличии товара.</param>
     /// <returns>Созданная запись о наличии товара с статусом 201.</returns>
     [HttpPost]
     public ActionResult<StockDto> CreateStock([FromBody] StockCreateDto stockCreateDto)

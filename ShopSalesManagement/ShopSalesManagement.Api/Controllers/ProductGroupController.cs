@@ -42,7 +42,7 @@ public class ProductGroupController : ControllerBase
     /// <summary>
     /// Создать новую товарную группу.
     /// </summary>
-    /// <param name="productGroupDto">Данные товарной группы для создания.</param>
+    /// <param name="productGroupCreateDto">Данные товарной группы для создания.</param>
     /// <returns>Созданная товарная группа с статусом 201.</returns>
     [HttpPost]
     public ActionResult<ProductGroupDto> CreateProductGroup([FromBody] ProductGroupCreateDto productGroupCreateDto)

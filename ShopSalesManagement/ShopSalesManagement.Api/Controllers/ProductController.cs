@@ -44,7 +44,7 @@ public class ProductController : ControllerBase
     /// <summary>
     /// Создать новый товар.
     /// </summary>
-    /// <param name="productDto">Данные товара для создания.</param>
+    /// <param name="productCreateDto">Данные товара для создания.</param>
     /// <returns>Созданный товар с статусом 201.</returns>
     [HttpPost]
     public ActionResult<ProductDto> CreateProduct([FromBody] ProductCreateDto productCreateDto)

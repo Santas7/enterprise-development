@@ -42,7 +42,7 @@ public class StoreController : ControllerBase
     /// <summary>
     /// Создать новый магазин.
     /// </summary>
-    /// <param name="storeDto">Данные для создания магазина.</param>
+    /// <param name="storeCreateDto">Данные для создания магазина.</param>
     /// <returns>Созданный магазин с статусом 201.</returns>
     [HttpPost]
     public ActionResult<StoreDto> CreateStore([FromBody] StoreCreateDto storeCreateDto)

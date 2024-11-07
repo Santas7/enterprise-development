@@ -1,15 +1,20 @@
 using ShopSalesManagement.Api.DTOs;
 using ShopSalesManagement.Api.Services;
-using Microsoft.EntityFrameworkCore;
 using ShopSalesManagement.Domain;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using ShopSalesManagement.Api.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Добавление сервиса контекста базы данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("ShopSalesManagement.Api")));  
 
+
+// Конфигурация Swagger с XML-комментированием
 builder.Services.AddSwaggerGen(options =>
 {
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -17,28 +22,28 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(xmlPath);
 });
 
+// Регистрация интерфейсов и сервисов
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IStockService, StockService>();
+builder.Services.AddScoped<IStoreService, StoreService>();
+builder.Services.AddScoped<ISaleService, SaleService>();
+builder.Services.AddScoped<IProductGroupService, ProductGroupService>();
+builder.Services.AddScoped<IPurchaseService, PurchaseService>();
 
-// Добавление сервисов и конфигурация
+// Добавление контроллеров
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Инициализация списков для хранения данных
-builder.Services.AddSingleton<List<ProductDto>>();
-builder.Services.AddSingleton<List<StockDto>>();
-builder.Services.AddSingleton<List<StoreDto>>();
-builder.Services.AddSingleton<List<SaleDto>>();
-
-// Регистрация кастомных сервисов для каждой сущности
-builder.Services.AddScoped<CustomerService>();
-builder.Services.AddScoped<ProductService>();
-builder.Services.AddScoped<StockService>();
-builder.Services.AddScoped<StoreService>();
-builder.Services.AddScoped<SaleService>();
-builder.Services.AddScoped<ProductGroupService>();
-builder.Services.AddScoped<PurchaseService>();
-
 var app = builder.Build();
+
+// Автоматическое выполнение миграций
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.Migrate();
+}
 
 // Конфигурация HTTP-запросов
 if (app.Environment.IsDevelopment())

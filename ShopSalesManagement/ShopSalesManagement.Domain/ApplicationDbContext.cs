@@ -32,48 +32,46 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Пример настройки сущностей. Можно добавлять ограничения, индексы, связи и т.д.
-
         // Настройка связи между Product и ProductGroup
         modelBuilder.Entity<Product>()
-            .HasOne<ProductGroup>()
-            .WithMany()
+            .HasOne(p => p.ProductGroup)
+            .WithMany(pg => pg.Products)
             .HasForeignKey(p => p.ProductGroupId);
 
         // Настройка связи между Purchase и Sale
         modelBuilder.Entity<Purchase>()
-            .HasOne<Sale>()
-            .WithMany()
+            .HasOne(p => p.Sale)
+            .WithMany(s => s.Purchases)
             .HasForeignKey(p => p.SaleId);
 
         // Настройка связи между Purchase и Product
         modelBuilder.Entity<Purchase>()
-            .HasOne<Product>()
+            .HasOne(p => p.Product)
             .WithMany()
             .HasForeignKey(p => p.ProductId);
 
         // Настройка связи между Sale и Customer
         modelBuilder.Entity<Sale>()
-            .HasOne<Customer>()
-            .WithMany()
+            .HasOne(s => s.Customer)
+            .WithMany(c => c.Sales)
             .HasForeignKey(s => s.CustomerId);
 
         // Настройка связи между Stock и Product
         modelBuilder.Entity<Stock>()
-            .HasOne<Product>()
+            .HasOne(s => s.Product)
             .WithMany()
             .HasForeignKey(s => s.ProductId);
 
         // Настройка связи между Stock и Store
         modelBuilder.Entity<Stock>()
-            .HasOne<Store>()
-            .WithMany()
+            .HasOne(s => s.Store)
+            .WithMany(st => st.Stocks)
             .HasForeignKey(s => s.StoreId);
 
         // Настройка связи между Sale и Store
         modelBuilder.Entity<Sale>()
-            .HasOne<Store>()
-            .WithMany()
+            .HasOne(s => s.Store)
+            .WithMany(st => st.Sales)
             .HasForeignKey(s => s.StoreId);
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ShopSalesManagement.Api.DTOs;
 using ShopSalesManagement.Api.Services.Interfaces;
-using ShopSalesManagement.Domain;
 
 namespace ShopSalesManagement.Api.Controllers;
 

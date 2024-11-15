@@ -7,14 +7,31 @@ using ShopSalesManagement.Api.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Добавление сервиса контекста базы данных
+// Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРЅС„РёРіСѓСЂР°С†РёРё CORS РґР»СЏ СЂР°Р·СЂРµС€РµРЅРёСЏ Р·Р°РїСЂРѕСЃРѕРІ СЃ React
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        var clientAddresses = builder.Configuration.GetSection("ClientAddresses").Get<Dictionary<string, string>>();
+        if (clientAddresses == null || !clientAddresses.Any())
+        {
+            throw new Exception("РЎРµРєС†РёСЏ 'ClientAddresses' РЅРµ РЅР°Р№РґРµРЅР° РёР»Рё РїСѓСЃС‚Р° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё appsettings.json.");
+        }
+        policy.WithOrigins(clientAddresses.Values.ToArray())
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
+// Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРЅС‚РµРєСЃС‚Р° Р±Р°Р·С‹ РґР°РЅРЅС‹С…
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("ShopSalesManagement.Api")));  
 
 
-// Конфигурация Swagger с XML-комментированием
+// РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ Swagger СЃ XML-РєРѕРјРјРµРЅС‚РёСЂРѕРІР°РЅРёРµРј
 builder.Services.AddSwaggerGen(options =>
 {
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -22,7 +39,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(xmlPath);
 });
 
-// Регистрация интерфейсов и сервисов
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃРѕРІ Рё СЃРµСЂРІРёСЃРѕРІ
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IStockService, StockService>();
@@ -31,21 +48,21 @@ builder.Services.AddScoped<ISaleService, SaleService>();
 builder.Services.AddScoped<IProductGroupService, ProductGroupService>();
 builder.Services.AddScoped<IPurchaseService, PurchaseService>();
 
-// Добавление контроллеров
+// Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРЅС‚СЂРѕР»Р»РµСЂРѕРІ
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Автоматическое выполнение миграций
+// РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РІС‹РїРѕР»РЅРµРЅРёРµ РјРёРіСЂР°С†РёР№
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.Migrate();
 }
 
-// Конфигурация HTTP-запросов
+// РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ HTTP-Р·Р°РїСЂРѕСЃРѕРІ
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

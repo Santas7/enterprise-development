@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        <h1>Shop Sales Management Client</h1>
+        <h1 class="text-center">Shop Sales Management Client</h1>
         <Routes>
           <Route path="/" element={<CustomerList />} />
           <Route path="/customer/create" element={<CustomerCreate />} />

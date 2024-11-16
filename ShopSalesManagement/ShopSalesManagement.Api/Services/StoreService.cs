@@ -17,7 +17,7 @@ public class StoreService : IStoreService
     {
         return _context.Stores.Select(s => new StoreDto
         {
-            Id = s!.Id,
+            Id = s.Id,
             Name = s.Name ?? string.Empty,
             Address = s.Address ?? string.Empty
         }).ToList();
